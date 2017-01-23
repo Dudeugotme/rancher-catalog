@@ -1,10 +1,29 @@
 .catalog:
-  name: glusterfs # Name of the versioned template of the Catalog Entry
-  version: 0.1 # Version of the versioned template of the Catalog Entry
-  description: glusterfs test # Description of the versioned template of the Catalog Entry
-  uuid: glusterfs-0.1 # Unique identifier to be used for upgrades. Please see note.
+  name: "GlusterFS"
+  version: "3.7.9-rancher1"
+  description: "Gluster FS (3x) replicated volume"
+  questions:
+    - variable: "VOLUME_NAME"
+      description: "Name to give the Gluster volume"
+      label: "Volume Name"
+      required: true
+      default: "my_vol"
+      type: "string"
+    - variable: "network_mode"
+      description: |
+        To use Gluster on the rancher network, use the default setting.
+        If you want to expose Gluster to non-Rancher clients, use host. 
+        Take note, that Gluster will be accessible to anything accessible to
+        the host. Do not use this configuration in an untrusted setting.
+      label: "Gluster Networking Mode"
+      required: true
+      type: "enum"
+      default: "container:glusterfs-server"
+      options:
+        - "container:glusterfs-server"
+        - "host"
 glusterfs-server:
   scale: 3
   retain_ip: true
   metadata:
-    volume_name: "my_vol"
+    volume_name: "${VOLUME_NAME}"
