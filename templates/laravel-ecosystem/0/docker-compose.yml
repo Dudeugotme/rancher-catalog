@@ -19,8 +19,7 @@ Php-fpm:
     INSTALL_XDEBUG: "false"
     INSTALL_MONGO: "false"
     INSTALL_ZIP_ARCHIVE: "false"
-  build: .
-  dockerfile: Dockerfile-php70
+  image: antic.website:5000/laravel-rancher-test:latest
   volumes:
     - ${app_source}:/var/www/${app_volume_dir}
   expose:
