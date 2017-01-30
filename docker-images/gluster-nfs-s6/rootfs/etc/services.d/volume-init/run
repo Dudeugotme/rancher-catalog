@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv sh
+
+s6-svwait -t 4000 -u /var/run/s6/services/gluster
+echo "* starting volume-init"
+/opt/rancher/replicated_volume_create.sh
+
+# pause forever
+s6-pause -th

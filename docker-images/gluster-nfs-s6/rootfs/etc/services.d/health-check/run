@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+s6-svwait -t 4000 -u /var/run/s6/services/gluster
+echo "* starting health-check"
+exec giddyup health --check-command /opt/rancher/health_check.sh > /dev/null

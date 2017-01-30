@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+s6-svwait -t 4000 -u /var/run/s6/services/gluster
+echo "* starting peer-probe"
+exec giddyup leader elect --proxy-tcp-port=2160 /opt/rancher/peerprobe.sh

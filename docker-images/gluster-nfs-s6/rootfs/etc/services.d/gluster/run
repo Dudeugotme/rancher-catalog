@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+s6-svwait -t 4000 -u /var/run/s6/services/rpcbind
+echo "* starting glusterd"
+exec glusterd -p /var/run/gluster.pid --no-daemon --log-file=- --log-format=no-msg-id --log-level=WARNING

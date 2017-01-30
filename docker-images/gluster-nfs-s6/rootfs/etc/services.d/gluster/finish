@@ -1,0 +1,4 @@
+#!/usr/bin/execlineb -S0
+
+# Bring the container down if the process exits
+s6-svscanctl -t /var/run/s6/services

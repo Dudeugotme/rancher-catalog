@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv sh
+
+if [ ! -x /run/rpcbind ] ; then
+ install -m755 -g 32 -o 32 -d /run/rpcbind
+fi
+
+pid=$$
+sigterm()
+{
+  sleep 8
+  kill -TERM $pid
+}
+
+# so that glusterd does not throw
+# portmap errors on shutdown
+trap sigterm SIGTERM
+echo "* starting rpcbind"
+rpcbind -d >/dev/null 2>&1 &
+pid=$!
+wait $!
